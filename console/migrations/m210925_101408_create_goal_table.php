@@ -18,10 +18,10 @@ class m210925_101408_create_goal_table extends Migration
     {
         $this->createTable('{{%goal}}', [
             'id' => $this->primaryKey(),
-            'match' => $this->integer()->notNull(),
-            'team' => $this->integer()->notNull(),
-            'minute' => $this->tinyInteger(),
-            'note' => $this->text(),
+            'match' => $this->integer()->notNull()->comment('Встреча'),
+            'team' => $this->integer()->notNull()->comment('Команда'),
+            'minute' => $this->tinyInteger()->comment('Минута встречи'),
+            'note' => $this->text()->comment('Примечания'),
         ]);
 
         // creates index for column `match`

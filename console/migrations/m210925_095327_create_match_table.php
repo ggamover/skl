@@ -17,9 +17,9 @@ class m210925_095327_create_match_table extends Migration
     {
         $this->createTable('{{%match}}', [
             'id' => $this->primaryKey(),
-            'date' => $this->dateTime(),
-            'note' => $this->text(),
-            'home_team' => $this->integer()->notNull(),
+            'date' => $this->dateTime()->comment('Дата и время проведения'),
+            'note' => $this->text()->comment('Примечания'),
+            'home_team' => $this->integer()->notNull()->comment('Принимающая сторона'),
         ]);
 
         // creates index for column `home_team`

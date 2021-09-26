@@ -10,7 +10,9 @@ class Match extends \common\models\Match
 {
     public $day;
     public $time;
-    
+    public $homeTeam;
+    public $guestTeam;
+
     /**
      * {@inheritdoc}
      */
@@ -20,10 +22,13 @@ class Match extends \common\models\Match
             [['date', 'day', 'time'], 'safe'],
             [['note'], 'string'],
             [['day', 'time', 'home_team'], 'required'],
-            [['home_team'], 'integer'],
-            [['home_team'], 'exist', 'skipOnError' => true,
-                'targetClass' => Team::class, 'targetAttribute' => ['home_team' => 'id']],
+            [['homeTeam', 'guestTeam'], 'integer'],
+            [['homeTeam'], 'exist', 'skipOnError' => true,
+                'targetClass' => Team::class, 'targetAttribute' => ['homeTeam' => 'id']],
+            [['guestTeam'], 'exist', 'skipOnError' => true,
+                'targetClass' => Team::class, 'targetAttribute' => ['guestTeam' => 'id']],
         ];
     }
+
 
 }

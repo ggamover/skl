@@ -17,27 +17,9 @@ class m210925_095327_create_match_table extends Migration
     {
         $this->createTable('{{%match}}', [
             'id' => $this->primaryKey(),
-            'date' => $this->dateTime()->comment('Дата и время проведения'),
+            'date' => $this->dateTime()->notNull()->comment('Дата и время проведения'),
             'note' => $this->text()->comment('Примечания'),
-            'home_team' => $this->integer()->notNull()->comment('Принимающая сторона'),
         ]);
-
-        // creates index for column `home_team`
-        $this->createIndex(
-            '{{%idx-match-home_team}}',
-            '{{%match}}',
-            'home_team'
-        );
-
-        // add foreign key for table `{{%team}}`
-        $this->addForeignKey(
-            '{{%fk-match-home_team}}',
-            '{{%match}}',
-            'home_team',
-            '{{%team}}',
-            'id',
-            'CASCADE'
-        );
 
     }
 
@@ -46,18 +28,6 @@ class m210925_095327_create_match_table extends Migration
      */
     public function safeDown()
     {
-        // drops foreign key for table `{{%team}}`
-        $this->dropForeignKey(
-            '{{%fk-match-home_team}}',
-            '{{%match}}'
-        );
-
-        // drops index for column `home_team`
-        $this->dropIndex(
-            '{{%idx-match-home_team}}',
-            '{{%match}}'
-        );
-
         $this->dropTable('{{%match}}');
     }
 }

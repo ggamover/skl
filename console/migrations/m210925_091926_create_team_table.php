@@ -14,9 +14,9 @@ class m210925_091926_create_team_table extends Migration
     {
         $this->createTable('{{%team}}', [
             'id' => $this->primaryKey(),
-            'name' => $this->string()->comment('Наименование'),
+            'name' => $this->string()->notNull()->comment('Наименование'),
             'logo' => $this->string()->comment('Логотип'),
-            'location' => $this->string()->comment('Город'),
+            'location' => $this->string()->notNull()->comment('Город'),
             'description' => $this->text()->comment('Описание'),
         ]);
 

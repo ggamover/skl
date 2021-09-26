@@ -19,6 +19,8 @@ class m210925_095511_create_junction_table_for_match_and_team_tables extends Mig
         $this->createTable('{{%match_team}}', [
             'match_id' => $this->integer(),
             'team_id' => $this->integer(),
+            'score' => $this->tinyInteger(3)->notNull()->defaultValue(0),
+            'home_team' => $this->tinyInteger(1)->notNull()->defaultValue(0),
             'PRIMARY KEY(match_id, team_id)',
         ]);
 

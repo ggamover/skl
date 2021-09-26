@@ -9,6 +9,8 @@ use Yii;
  *
  * @property int $match_id
  * @property int $team_id
+ * @property int $score
+ * @property int $home_team
  *
  * @property Match $match
  * @property Team $team
@@ -30,7 +32,7 @@ class MatchTeam extends \yii\db\ActiveRecord
     {
         return [
             [['match_id', 'team_id'], 'required'],
-            [['match_id', 'team_id'], 'integer'],
+            [['match_id', 'team_id', 'score', 'home_team'], 'integer'],
             [['match_id', 'team_id'], 'unique', 'targetAttribute' => ['match_id', 'team_id']],
             [['match_id'], 'exist', 'skipOnError' => true, 'targetClass' => Match::class, 'targetAttribute' => ['match_id' => 'id']],
             [['team_id'], 'exist', 'skipOnError' => true, 'targetClass' => Team::class, 'targetAttribute' => ['team_id' => 'id']],
@@ -66,5 +68,14 @@ class MatchTeam extends \yii\db\ActiveRecord
     public function getTeam()
     {
         return $this->hasOne(Team::class, ['id' => 'team_id']);
+    }
+
+    /**
+     * {@inheritdoc}
+     * @return MatchTeamQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new MatchTeamQuery(get_called_class());
     }
 }

@@ -8,9 +8,11 @@ $params = array_merge(
 
 return [
     'id' => 'app-backend',
+    'name' => 'Панель управления',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
+    'language' => 'ru-RU',
     'modules' => [],
     'components' => [
         'request' => [
@@ -37,14 +39,17 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
-        'urlManager' => [
-            'enablePrettyUrl' => true,
+        /*'urlManager' => [
+            'enablePrettyUrl' => false,
             'showScriptName' => false,
             'rules' => [
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => ['team']
+                ]
             ],
-        ],
-        */
+        ],*/
+
     ],
     'params' => $params,
 ];

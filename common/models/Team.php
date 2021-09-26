@@ -33,6 +33,7 @@ class Team extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['name', 'location'], 'required'],
             [['description'], 'string'],
             [['name', 'logo', 'location'], 'string', 'max' => 255],
         ];

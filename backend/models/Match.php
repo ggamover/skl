@@ -4,6 +4,7 @@
 namespace backend\models;
 
 
+use common\models\MatchTeam;
 use common\models\Team;
 
 class Match extends \common\models\Match
@@ -12,6 +13,8 @@ class Match extends \common\models\Match
     public $time;
     public $homeTeam;
     public $guestTeam;
+    public $homeScore;
+    public $guestScore;
 
     /**
      * {@inheritdoc}
@@ -21,8 +24,8 @@ class Match extends \common\models\Match
         return [
             [['date', 'day', 'time'], 'safe'],
             [['note'], 'string'],
-            [['day', 'time', 'home_team'], 'required'],
-            [['homeTeam', 'guestTeam'], 'integer'],
+            [['day', 'time', 'homeTeam', 'guestTeam'], 'required'],
+            [['homeTeam', 'guestTeam', 'homeScore', 'guestScore'], 'integer'],
             [['homeTeam'], 'exist', 'skipOnError' => true,
                 'targetClass' => Team::class, 'targetAttribute' => ['homeTeam' => 'id']],
             [['guestTeam'], 'exist', 'skipOnError' => true,
@@ -30,5 +33,43 @@ class Match extends \common\models\Match
         ];
     }
 
+    public function attributeLabels ()
+    {
+        return [
+            'day' => 'День',
+            'time' => 'Время',
+            'homeTeam' => 'Хозяева',
+            'guestTeam' => 'Гости'
+        ];
+    }
+
+    public function beforeSave ($insert)
+    {
+        $dto = \DateTime::createFromFormat('Y-m-d H:i', $this->day . ' ' . $this->time);
+        $this->date = $dto->format('Y-m-d H:i:s');
+        return parent::beforeSave($insert);
+    }
+
+
+    public function afterSave ($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+        if(!$insert){
+            $this->unlinkAll('teams', true);
+        }
+
+        $homeTeam = new MatchTeam;
+        $homeTeam->home_team = 1;
+        $homeTeam->team_id = $this->homeTeam;
+        $homeTeam->score = $this->homeScore;
+        $this->link('matchTeams', $homeTeam);
+
+        $guestTeam = new MatchTeam;
+        $guestTeam->team_id = $this->guestTeam;
+        $guestTeam->score = $this->guestScore;
+        $this->link('matchTeams', $guestTeam);
+
+    }
 
 }

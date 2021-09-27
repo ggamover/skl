@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -24,12 +25,35 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'date',
+            [
+                'attribute' => 'date',
+                'header' => 'Дата',
+                'format' => ['date', 'php:Y-m-d H:i'],
+                'enableSorting' => true
+            ],
+            [
+                'header' => 'Участники',
+                'value' => function($model) {
+                    $teams = [1 => '', 2 => ''];
+                    foreach ($model->matchTeams as $mt){
+                        $teams[($mt->home_team ? 1 : 2)] = $mt->team->name;
+                    }
+                    return implode('-', $teams);
+                }
+            ],
+            [
+                'attribute' => 'teams',
+                'header' => 'Счёт',
+                'value' => function($model) {
+                    $teams = [1 => '', 2 => ''];
+                    foreach ($model->matchTeams as $mt){
+                        $teams[($mt->home_team ? 1 : 2)] = $mt->score;
+                    }
+                    return implode(' : ', $teams);
+                }
+            ],
             'note:ntext',
-            'home_team',
+            'id',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

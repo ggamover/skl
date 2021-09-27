@@ -16,7 +16,7 @@ class MatchSearch extends Match
     public function rules()
     {
         return [
-            [['id', 'home_team'], 'integer'],
+            [['id'], 'integer'],
             [['date', 'note'], 'safe'],
         ];
     }
@@ -41,7 +41,8 @@ class MatchSearch extends Match
     {
         $query = Match::find();
 
-        // add conditions that should always apply here
+//        $query->joinWith('matchTeams');
+//        $query->joinWith(['teams' => function($query) { $query->from(['team' => 'match_team']); }]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -59,7 +60,6 @@ class MatchSearch extends Match
         $query->andFilterWhere([
             'id' => $this->id,
             'date' => $this->date,
-            'home_team' => $this->home_team,
         ]);
 
         $query->andFilterWhere(['like', 'note', $this->note]);

@@ -135,6 +135,18 @@ class MatchController extends Controller
     protected function findModel($id)
     {
         if (($model = Match::findOne($id)) !== null) {
+            $dto = new \DateTime($model->date);
+            $model->day = $dto->format('Y-m-d');
+            $model->time = $dto->format('H:i');
+            foreach ($model->matchTeams as $team){
+                if($team->home_team){
+                    $model->homeTeam = $team->team_id;
+                    $model->homeScore = $team->score;
+                }else{
+                    $model->guestTeam = $team->team_id;
+                    $model->guestScore = $team->score;
+                }
+            }
             return $model;
         }
 

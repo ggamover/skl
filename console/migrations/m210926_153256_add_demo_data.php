@@ -13,10 +13,10 @@ class m210926_153256_add_demo_data extends Migration
     public function safeUp()
     {
         $this->batchInsert('team', ['name', 'location', 'logo'], [
-            ['Зенит', null, 'Санкт-Петербург'],
-            ['Спартак', null, 'Москва'],
-            ['Рубин', null, 'Казань'],
-            ['Локомотоив', null, 'Москва'],
+            ['Зенит', 'Санкт-Петербург',    null],
+            ['Спартак', 'Москва',           null],
+            ['Рубин', 'Казань',             null],
+            ['Локомотив', 'Москва',         null],
         ]);
     }
 

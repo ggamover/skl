@@ -36,10 +36,12 @@ class Match extends \common\models\Match
     public function attributeLabels ()
     {
         return [
+            'date' => 'Дата',
             'day' => 'День',
             'time' => 'Время',
             'homeTeam' => 'Хозяева',
-            'guestTeam' => 'Гости'
+            'guestTeam' => 'Гости',
+            'note' => 'Примечания'
         ];
     }
 
@@ -70,6 +72,24 @@ class Match extends \common\models\Match
         $guestTeam->score = $this->guestScore;
         $this->link('matchTeams', $guestTeam);
 
+    }
+
+    public function teamsByHome()
+    {
+        $teams = [1 => '', 2 => ''];
+        foreach ($this->matchTeams as $mt){
+            $teams[($mt->home_team ? 1 : 2)] = $mt->team->name;
+        }
+        return $teams;
+    }
+
+    public function scoreByHome()
+    {
+        $teams = [1 => '', 2 => ''];
+        foreach ($this->matchTeams as $mt){
+            $teams[($mt->home_team ? 1 : 2)] = $mt->score;
+        }
+        return $teams;
     }
 
 }

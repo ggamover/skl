@@ -4,6 +4,7 @@ namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use yii\db\Expression;
 
 /**
  * MatchSearch represents the model behind the search form of `\common\models\Match`.
@@ -59,10 +60,12 @@ class MatchSearch extends Match
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'date' => $this->date,
+            'DATE(date)' => $this->date,
         ]);
 
         $query->andFilterWhere(['like', 'note', $this->note]);
+
+
 
         return $dataProvider;
     }

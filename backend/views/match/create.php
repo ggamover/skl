@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Match */
 
-$this->title = 'Create Match';
-$this->params['breadcrumbs'][] = ['label' => 'Matches', 'url' => ['index']];
+$this->title = 'Новый матч';
+$this->params['breadcrumbs'][] = ['label' => 'Матчи', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="match-create">

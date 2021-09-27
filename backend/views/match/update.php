@@ -3,12 +3,12 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Match */
-
-$this->title = 'Update Match: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Matches', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+/* @var $model backend\models\Match */
+$teamstr = implode(' - ', $model->teamsByHome());
+$this->title = 'Изменить матч: ' . $teamstr;
+$this->params['breadcrumbs'][] = ['label' => 'Матчи', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $teamstr, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = 'Изменить';
 ?>
 <div class="match-update">
 

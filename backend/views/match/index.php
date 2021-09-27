@@ -29,27 +29,31 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'date',
                 'header' => 'Дата',
                 'format' => ['date', 'php:Y-m-d H:i'],
-                'enableSorting' => true
+                'enableSorting' => true,
+                'filter' => \yii\jui\DatePicker::widget([
+                    'model' => $searchModel,
+                    'attribute'=>'date',
+                    'language' => 'ru',
+                    'dateFormat' => 'yyyy-MM-dd',
+                ])
             ],
             [
                 'header' => 'Участники',
                 'value' => function($model) {
-                    $teams = [1 => '', 2 => ''];
-                    foreach ($model->matchTeams as $mt){
-                        $teams[($mt->home_team ? 1 : 2)] = $mt->team->name;
-                    }
-                    return implode('-', $teams);
+                    /**
+                     * @var \backend\models\Match $model
+                     */
+                    return implode('-', $model->teamsByHome());
                 }
             ],
             [
                 'attribute' => 'teams',
                 'header' => 'Счёт',
                 'value' => function($model) {
-                    $teams = [1 => '', 2 => ''];
-                    foreach ($model->matchTeams as $mt){
-                        $teams[($mt->home_team ? 1 : 2)] = $mt->score;
-                    }
-                    return implode(' : ', $teams);
+                    /**
+                     * @var \backend\models\Match $model
+                     */
+                    return implode(' : ', $model->scoreByHome());
                 }
             ],
             'note:ntext',

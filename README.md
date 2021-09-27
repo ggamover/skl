@@ -10,15 +10,15 @@
 <h5>Описание установки</h5>
 Для примера установим в директорию /home/user/project/skl-app
 <ol>
-  <li>Зайти в директорию, где будет проект cd /home/user/project</li>
-  <li>скачать репозиторий <code>git clone https://github.com/ggamover/skl.git skl-app</code>, 
+  <li>Зайти в директорию, где будет проект<br><code>cd /home/user/project</code></li>
+  <li>скачать репозиторий <br><code>git clone https://github.com/ggamover/skl.git skl-app</code><br> 
   где 'skl-app' - название директории в которую будет скачиваться проект</li>
   <li>зайти в директорию проекта <code>cd skl-app</code></li>
   <li>Выполнить <code>composer install</code></li>
   <li>Выполнить <code>init --env=Production --overwrite=All</code></li>
   <li>Создать базу данных, например skl, прописать параметры подключения в common/config/main-local.php</li>
   <li>Запустить миграцию: <code>yii migrate</code>. Или без демо-данных <code>yii migrate/up 5</code></li>
-  <li>Создать пользователя для backend: <code>yii user/create-admin &lang;имя&rang; &lang;пароль&rang; &lang;email&rang;</code></li>
+  <li>Создать пользователя для backend: <br><code>yii user/create-admin &lang;имя&rang; &lang;пароль&rang; &lang;email&rang;</code></li>
   <li>Настроить http сервер для backend и frontend согласно документации Yii2:
     <a href="https://www.yiiframework.com/extension/yiisoft/yii2-app-advanced/doc/guide/2.0/en/start-installation"></a>
      см. раздел 'Preparing application', п.4

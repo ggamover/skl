@@ -19,7 +19,7 @@ class Champ
                 new Expression('SUM(mt2.score) AS conceded'),
                 new Expression('SUM(CASE'
 	                    . ' WHEN mt.score > mt2.score THEN 3'
-	                    . ' WHEN mt.score < mt2.score THEN 1'
+	                    . ' WHEN mt.score = mt2.score THEN 1'
                         . ' ELSE 0 END) AS points')
             ])
             ->leftJoin(['mt' => 'match_team'], 't.id = mt.team_id')
